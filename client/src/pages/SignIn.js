@@ -14,7 +14,7 @@ function SignIn({ setMessage }) {
         setMessage({ msg: null });
 
         // validate form
-        if (validateForm(setMessage) == false) return;
+        if (validateForm(setMessage) === false) return;
         console.log(email);
         console.log(password);
     };

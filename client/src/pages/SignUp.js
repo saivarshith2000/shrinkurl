@@ -16,7 +16,7 @@ function SignUp({ setMessage }) {
         setMessage({ msg: null });
 
         // validate form
-        if (validateForm(setMessage) == false) return;
+        if (validateForm(setMessage) === false) return;
         console.log(username);
         console.log(email);
         console.log(password);
@@ -39,7 +39,7 @@ function SignUp({ setMessage }) {
             return false;
         }
         // see if both passwords match
-        if (password != confirmPwd) {
+        if (password !== confirmPwd) {
             setMessage({
                 isError: true,
                 msg: "Passwords do not match. Please try again !",
