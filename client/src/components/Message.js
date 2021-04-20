@@ -4,15 +4,15 @@ function Message({ message }) {
     if (message.isError) {
         // render an error message
         return (
-            <div className="w-full p-4 bg-red-300">
-                <p className="text-red-800 text-l">{message.msg}</p>
+            <div className="w-full p-2 text-center bg-red-300">
+                <p className="font-bold text-red-800 text-l">{message.msg}</p>
             </div>
         );
     }
     // return success otherwise
     return (
-        <div className="p-4 bg-green-300">
-            <p className="text-green-800 text-l">{message.msg}</p>
+        <div className="w-full p-2 text-center bg-green-300">
+            <p className="font-bold text-green-800 text-l">{message.msg}</p>
         </div>
     );
 }
