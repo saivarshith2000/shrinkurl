@@ -21,7 +21,7 @@ function NavBar() {
     };
 
     return (
-        <div className="fixed z-50 w-full p-4 shadow-lg bg-gray-50">
+        <div className="relative z-50 p-2 shadow-lg bg-gray-50">
             <div className="flex flex-row justify-between w-2/3 m-auto align-middle">
                 <div className="p-2 my-auto text-4xl font-bold align-middle bg-blue-600 rounded-sm text-gray-50">
                     <Link to="/">ShrinkUrl</Link>
