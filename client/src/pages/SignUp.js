@@ -1,8 +1,6 @@
 import { useState } from "react";
 import AuthFormField from "../components/AuthFormField";
 
-const emailRegex = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
-
 function SignUp({ setMessage }) {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
@@ -62,13 +60,7 @@ function SignUp({ setMessage }) {
             });
             return false;
         }
-        // validate email
-        if (emailRegex.test(email)) return true;
-        setMessage({
-            isError: true,
-            msg: "Invalid E-mail address. Please try again !",
-        });
-        return false;
+        return true;
     };
 
     return (

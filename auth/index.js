@@ -1,15 +1,22 @@
 const express = require("express");
-const app = express();
+
+const ErrorHandler = require("./middlewares/ErrorHandler");
+
 const port = process.env.PORT || 8000;
+const app = express();
 
-app.get("/signin", (req, res) => {
-    res.send("signin page!");
-});
+// middlewares
+app.use(express.json());
 
-app.get("/signup", (req, res) => {
-    res.send("signup page");
-});
+// routes
+const signup = require("./routes/signup");
+const signin = require("./routes/signin");
+app.use(signup);
+app.use(signin);
+
+// error handler
+app.use(ErrorHandler);
 
 app.listen(port, () => {
-    console.log(`Example app listening at http://localhost:${port}`);
+    console.log(`ShrinkUrl auth server running at http://localhost:${port}`);
 });
