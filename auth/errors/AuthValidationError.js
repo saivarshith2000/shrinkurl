@@ -1,7 +1,7 @@
 class AuthValidationError extends Error {
     constructor(msg) {
         super();
-        this.msg = msg;
+        this.message = msg;
         this.code = 400;
     }
 }

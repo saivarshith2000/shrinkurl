@@ -4,6 +4,7 @@ const { NotFoundError } = require("objection");
 const router = express.Router();
 
 const { verifyPassword } = require("../utils/bcrypt");
+const UserDAO = require("../db/dao/UserDAO");
 const User = require("../db/models/User");
 const AuthValidationError = require("../errors/AuthValidationError");
 const ServerError = require("../errors/ServerError");
@@ -25,11 +26,7 @@ router.post(
         const { email, password } = req.body;
         try {
             // if user doesn't exists, an error is thrown by objection
-            const user = await User.query()
-                .findOne({ email })
-                .throwIfNotFound();
-            // verify hashed password`
-            const result = await verifyPassword(password, user.password);
+            const result = await UserDAO.verify(email, password);
             if (result == false) {
                 // if password is incorrect
                 return next(

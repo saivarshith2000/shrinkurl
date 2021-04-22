@@ -1,12 +1,11 @@
 const express = require("express");
-const { body, validationResult } = require("express-validator");
 const router = express.Router();
+const { body, validationResult } = require("express-validator");
 const { UniqueViolationError } = require("objection");
 
-const { getHashedPassword } = require("../utils/bcrypt");
-const User = require("../db/models/User");
 const AuthValidationError = require("../errors/AuthValidationError");
 const ServerError = require("../errors/ServerError");
+const UserDAO = require("../db/dao/UserDAO");
 
 router.post(
     "/signup",
@@ -25,12 +24,7 @@ router.post(
         }
         const { username, password, email } = req.body;
         try {
-            const passwordhash = await getHashedPassword(password);
-            const user = await User.query().insert({
-                username,
-                password: passwordhash,
-                email,
-            });
+            await UserDAO.insert(username, password, email);
             // TODO: user success logic
             return res
                 .status(200)
