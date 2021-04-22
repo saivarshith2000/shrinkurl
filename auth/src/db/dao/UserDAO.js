@@ -4,7 +4,7 @@ const { getHashedPassword, verifyPassword } = require("../../utils/bcrypt");
 class UserDAO {
     // try to insert a user in the database
     static async insert(username, password, email) {
-        const passwordhash = getHashedPassword(password);
+        const passwordhash = await getHashedPassword(password);
         return await User.query().insert({
             username,
             password: passwordhash,
