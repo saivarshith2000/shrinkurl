@@ -3,11 +3,10 @@ const { body, validationResult } = require("express-validator");
 const { NotFoundError } = require("objection");
 const router = express.Router();
 
-const { verifyPassword } = require("../utils/bcrypt");
 const UserDAO = require("../db/dao/UserDAO");
-const User = require("../db/models/User");
 const AuthValidationError = require("../errors/AuthValidationError");
 const ServerError = require("../errors/ServerError");
+const { generateJWT } = require("../utils/jwt");
 
 router.post(
     "/signin",
@@ -26,17 +25,19 @@ router.post(
         const { email, password } = req.body;
         try {
             // if user doesn't exists, an error is thrown by objection
-            const result = await UserDAO.verify(email, password);
-            if (result == false) {
+            const username = await UserDAO.verify(email, password);
+            if (username == null) {
                 // if password is incorrect
                 return next(
                     new AuthValidationError("email/password incorrect!")
                 );
             }
-            // if user exists, return success
+            // if user exists, return success and jwt
+            const token = generateJWT({ email, username });
+            print(token);
             return res
                 .status(200)
-                .json({ status: "success", data: { email, password } });
+                .json({ status: "success", data: { email, password }, token });
         } catch (err) {
             if (err instanceof NotFoundError) {
                 return next(

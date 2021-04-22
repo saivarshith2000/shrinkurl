@@ -28,7 +28,7 @@ router.post(
             // TODO: user success logic
             return res
                 .status(200)
-                .json({ status: "success", data: { username, email } });
+                .json({ status: "success", data: { username } });
         } catch (err) {
             if (err instanceof UniqueViolationError) {
                 return next(new AuthValidationError("email already exists!"));

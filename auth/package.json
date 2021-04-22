@@ -14,6 +14,7 @@
     "bcrypt": "^5.0.1",
     "express": "^4.17.1",
     "express-validator": "^6.10.0",
+    "jsonwebtoken": "^8.5.1",
     "knex": "^0.21.19",
     "nodemon": "^2.0.7",
     "objection": "^2.2.15",
