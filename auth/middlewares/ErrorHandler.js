@@ -1,4 +1,4 @@
-const ValidationError = require("../utils/AuthValidationError");
+const ValidationError = require("../errors/AuthValidationError");
 
 const ErrorHandler = (err, req, res, next) => {
     if (err instanceof ValidationError) {
