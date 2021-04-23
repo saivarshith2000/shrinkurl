@@ -34,7 +34,6 @@ router.post(
             }
             // if user exists, return success and jwt
             const token = generateJWT({ email, username });
-            print(token);
             return res
                 .status(200)
                 .json({ status: "success", data: { email, password }, token });

@@ -1,0 +1,20 @@
+{
+  "name": "shrink",
+  "version": "1.0.0",
+  "description": "URL shrinking service",
+  "main": "index.js",
+  "scripts": {
+    "migrate": "npx knex migrate:latest --knexfile=./src/db/knexfile.js",
+    "start": "node index.js",
+    "dev": "nodemon index.js"
+  },
+  "author": "saivarshith2000",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.17.1",
+    "knex": "^0.21.19",
+    "nodemon": "^2.0.7",
+    "objection": "^2.2.15",
+    "pg": "^8.6.0"
+  }
+}
