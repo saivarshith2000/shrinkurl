@@ -1,11 +1,26 @@
 import { useState } from "react";
 import validUrl from "valid-url";
+import axios from "axios";
 
 function Home({ setMessage }) {
     const [url, setUrl] = useState("");
+    const [shorturl, setShorturl] = useState("");
+    const [copied, setCopied] = useState(false);
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
+        if (shorturl === "") {
+            // get shorturl
+            // copy to clipboard
+            await getShortUrl();
+            return;
+        }
+        navigator.clipboard.writeText(shorturl);
+        setCopied(true);
+        return;
+    };
+
+    const getShortUrl = async () => {
         // check if invalid
         if (!validUrl.isUri(url)) {
             setMessage({
@@ -14,7 +29,33 @@ function Home({ setMessage }) {
             });
             return;
         }
-        console.log(url);
+        try {
+            const resp = await axios.post("http://localhost:8001/new", { url });
+            console.log(resp.data.shorturl);
+            setShorturl(resp.data.shorturl);
+        } catch (err) {
+            console.log(err);
+        }
+    };
+
+    const renderUrlInput = () => {
+        // if a shorturl is already set, display it instead of input bar
+        if (shorturl === "") {
+            return (
+                <input
+                    value={url}
+                    onChange={(e) => setUrl(e.target.value)}
+                    className="w-4/5 p-4 text-gray-600 rounded-sm rounded-r-none outline-none font-xl"
+                    placeholder="Enter your super long URL ..."
+                ></input>
+            );
+        }
+        return (
+            <input
+                value={shorturl}
+                className="w-4/5 p-4 text-gray-600 rounded-sm rounded-r-none outline-none font-xl"
+            ></input>
+        );
     };
 
     return (
@@ -34,14 +75,13 @@ function Home({ setMessage }) {
                             onSubmit={onSubmit}
                             className="flex w-full m-auto shadow-lg"
                         >
-                            <input
-                                value={url}
-                                onChange={(e) => setUrl(e.target.value)}
-                                className="w-4/5 p-4 text-gray-600 rounded-sm rounded-r-none outline-none font-xl"
-                                placeholder="Enter your super long URL ..."
-                            ></input>
+                            {renderUrlInput()}
                             <button className="w-1/5 p-4 my-auto text-xl font-semibold bg-blue-600 rounded-sm rounded-l-none text-gray-50 hover:bg-blue-800">
-                                Shrink
+                                {shorturl === ""
+                                    ? "Shrink"
+                                    : copied
+                                    ? "Copied"
+                                    : "Copy"}
                             </button>
                         </form>
                     </div>

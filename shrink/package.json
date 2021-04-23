@@ -11,10 +11,12 @@
   "author": "saivarshith2000",
   "license": "MIT",
   "dependencies": {
+    "cors": "^2.8.5",
     "express": "^4.17.1",
     "knex": "^0.21.19",
     "nodemon": "^2.0.7",
     "objection": "^2.2.15",
-    "pg": "^8.6.0"
+    "pg": "^8.6.0",
+    "valid-url": "^1.0.9"
   }
 }
