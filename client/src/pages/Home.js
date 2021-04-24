@@ -11,10 +11,11 @@ function Home({ setMessage }) {
         e.preventDefault();
         if (shorturl === "") {
             // get shorturl
-            // copy to clipboard
             await getShortUrl();
             return;
         }
+        console.log("copied to clipboard");
+        // copy to clipboard
         navigator.clipboard.writeText(shorturl);
         setCopied(true);
         return;
@@ -30,7 +31,7 @@ function Home({ setMessage }) {
             return;
         }
         try {
-            const resp = await axios.post("http://localhost:8001/new", { url });
+            const resp = await axios.post("/new", { url });
             console.log(resp.data.shorturl);
             setShorturl(resp.data.shorturl);
         } catch (err) {

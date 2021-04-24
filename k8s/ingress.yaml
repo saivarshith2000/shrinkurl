@@ -1,0 +1,17 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: shrinkurl-ingress
+spec:
+  rules:
+    - host: shrinkurl.com
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: client-srv
+              servicePort: 80
+          - path: /new
+            backend:
+              serviceName: shrink-srv
+              servicePort: 8000

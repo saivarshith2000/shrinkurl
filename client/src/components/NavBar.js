@@ -9,14 +9,13 @@ function NavBar() {
             { text: "About", url: "/about" },
         ];
         return urls.map((url) => (
-            <div
+            <Link
                 className="p-2 m-auto mx-4 rounded-sm hover:bg-blue-600 hover:text-gray-50"
                 key={url.url}
+                to={url.url}
             >
-                <Link className="text-xl" to={url.url}>
-                    {url.text}
-                </Link>
-            </div>
+                <p className="text-xl">{url.text}</p>
+            </Link>
         ));
     };
 

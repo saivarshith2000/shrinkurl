@@ -6,7 +6,7 @@ const crypto = require("crypto");
 
 const urls = [];
 
-const baseUrl = "http://localhost:8001/";
+const baseUrl = "http://shrinkurl.com";
 
 router.post("/new", async (req, res) => {
     // extract url from request body
