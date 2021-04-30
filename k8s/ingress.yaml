@@ -2,6 +2,8 @@ apiVersion: networking.k8s.io/v1beta1
 kind: Ingress
 metadata:
   name: shrinkurl-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/use-regex: "true"
 spec:
   rules:
     - host: shrinkurl.com
@@ -11,6 +13,14 @@ spec:
             backend:
               serviceName: client-srv
               servicePort: 80
+          - path: /sign*
+            backend:
+              serviceName: client-srv
+              servicePort: 80
+          - path: /auth/*
+            backend:
+              serviceName: auth-srv
+              servicePort: 8000          
           - path: /new
             backend:
               serviceName: shrink-srv

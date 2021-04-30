@@ -1,20 +1,36 @@
 import { useState } from "react";
 import AuthFormField from "../components/AuthFormField";
+import axios from 'axios'
 
 function SignIn({ setMessage }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
 
         // clear any previous messages
-        setMessage({ msg: null });
+        setMessage({ isError: false, msg: null });
 
         // validate form
         if (validateForm(setMessage) === false) return;
-        console.log(email);
-        console.log(password);
+
+        // send POST request to AUTH service
+        try {
+            const resp = await axios.post("/auth/signin", {email, password})
+            console.log(resp.data.username)
+            // store new JWT logic here
+            setMessage({isError: false, msg: "Signed in successfully!"})
+        } catch (e) {
+            console.log(e.response.data)
+            // if application error
+            if (e.response.data.status === 'error') {
+                setMessage({isError: true, msg: e.response.data.msg})
+            } else {
+                // network error
+                setMessage({isError: true, msg: "Error reaching our servers!"})
+            }
+        }
     };
 
     // simple form validation. On errors, the first error is set using setMessage and false is returned

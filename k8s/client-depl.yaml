@@ -17,10 +17,9 @@ spec:
         spec:
             containers:
                 - name: client
-                  image: localhost:5000/client
+                  image: shrinkurl/client
                   ports:
                       - containerPort: 80
-                  imagePullPolicy: Always
 ---
 # client service
 apiVersion: v1

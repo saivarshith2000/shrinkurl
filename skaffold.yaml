@@ -1,0 +1,37 @@
+apiVersion: skaffold/v2beta15
+kind: Config
+metadata:
+  name: shrinkurl
+build:
+  artifacts:
+  - image: shrinkurl/client
+    context: src/client
+    sync:
+      infer:
+        - '**/*.js'
+    docker:
+      dockerfile: Dockerfile
+
+  - image: shrinkurl/auth
+    context: src/auth
+    sync:
+      infer:
+        - '**/*.js'
+    docker:
+      dockerfile: Dockerfile
+
+  - image: shrinkurl/shrink
+    context: src/shrink
+    sync:
+      infer:
+        - '**/*.js'
+    docker:
+      dockerfile: Dockerfile
+deploy:
+  kubectl:
+    manifests:
+    - k8s/client-depl.yaml
+    - k8s/auth-depl.yaml
+    - k8s/auth-pg-depl.yaml
+    - k8s/shrink-depl.yaml
+    - k8s/ingress.yaml

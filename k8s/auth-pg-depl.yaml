@@ -1,0 +1,43 @@
+# auth-pg Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: auth-pg-depl
+    labels:
+        app: auth-pg
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: auth-pg
+    template:
+        metadata:
+            labels:
+                app: auth-pg
+        spec:
+            containers:
+                - name: auth-pg
+                  image: postgres:alpine
+                  env:
+                    - name: POSTGRES_PASSWORD
+                      value: testpwd
+                    - name: POSTGRES_USER
+                      value: testuser
+                    - name: POSTGRES_DB
+                      value: authdb
+                  ports:
+                      - containerPort: 5432
+---
+# auth-pg service
+apiVersion: v1
+kind: Service
+metadata:
+    name: auth-pg-srv
+spec:
+    selector:
+        app: auth-pg
+    ports:
+        - name: auth-pg
+          protocol: TCP
+          port: 5432
+          targetPort: 5432

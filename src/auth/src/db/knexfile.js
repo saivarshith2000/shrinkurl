@@ -5,9 +5,10 @@ module.exports = {
     development: {
         client: "postgresql",
         connection: {
+            host: "auth-pg-srv",
             database: "authdb",
-            user: "sai",
-            password: "authdbpwd",
+            user: "testuser",
+            password: "testpwd",
         },
         pool: {
             min: 2,

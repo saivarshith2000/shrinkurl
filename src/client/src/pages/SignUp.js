@@ -1,13 +1,16 @@
 import { useState } from "react";
 import AuthFormField from "../components/AuthFormField";
+import axios from 'axios'
+import {useHistory} from 'react-router-dom'
 
 function SignUp({ setMessage }) {
     const [username, setUsername] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [confirmPwd, setConfirmPwd] = useState("");
+    const history = useHistory()
 
-    const onSubmit = (e) => {
+    const onSubmit = async (e) => {
         e.preventDefault();
 
         // clear any previous messages
@@ -15,11 +18,26 @@ function SignUp({ setMessage }) {
 
         // validate form
         if (validateForm(setMessage) === false) return;
-        console.log(username);
-        console.log(email);
-        console.log(password);
-        console.log(confirmPwd);
-    };
+
+        // send POST request to AUTH service
+        try {
+            const resp = await axios.post("/auth/signup", {username, email, password})
+            console.log(resp.data)
+            // store JWT logic here
+            setMessage({isError: false, msg: "Signed up successfully. Sign In to proceed"})
+            // wait for 1 sec and redirect to signin page
+            setTimeout(() => history.push('/signin'), 1000)
+        } catch (e) {
+            console.log(e.response.data)
+            // if application error
+            if (e.response.data.status === 'error') {
+                setMessage({isError: true, msg: e.response.data.msg})
+            } else {
+                // network error
+                setMessage({isError: true, msg: "Error reaching our servers"})
+            }
+        }
+     };
 
     // simple form validation. On errors, the first error is set using setMessage and false is returned
     const validateForm = (setMessage) => {

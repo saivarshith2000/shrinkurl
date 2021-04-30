@@ -1,8 +1,8 @@
-const ValidationError = require("../errors/AuthValidationError");
+const AuthValidationError = require("../errors/AuthValidationError");
 const ServerError = require("../errors/ServerError");
 
 const ErrorHandler = (err, req, res, next) => {
-    if (err instanceof ValidationError) {
+    if (err instanceof AuthValidationError) {
         return res.status(err.code).json({
             status: "error",
             msg: err.message,

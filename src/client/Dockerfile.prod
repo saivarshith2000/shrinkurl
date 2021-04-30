@@ -1,3 +1,5 @@
+# Docker file for production. Follows two stage builder pattern
+
 # build environment
 FROM node:alpine as build
 WORKDIR /app

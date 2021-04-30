@@ -9,7 +9,7 @@ const ServerError = require("../errors/ServerError");
 const { generateJWT } = require("../utils/jwt");
 
 router.post(
-    "/signin",
+    "/auth/signin",
     [
         body("email").isEmail().normalizeEmail(),
         body("password").trim().isLength({ min: 6, max: 16 }),

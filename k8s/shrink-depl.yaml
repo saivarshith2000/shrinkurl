@@ -17,10 +17,9 @@ spec:
     spec:
       containers:
         - name: shrink
-          image: localhost:5000/shrink
+          image: shrinkurl/shrink
           ports:
             - containerPort: 8000
-          imagePullPolicy: Always
 ---
 # Shrink service
 apiVersion: v1

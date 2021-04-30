@@ -8,7 +8,7 @@ const ServerError = require("../errors/ServerError");
 const UserDAO = require("../db/dao/UserDAO");
 
 router.post(
-    "/signup",
+    "/auth/signup",
     [
         body("username").trim().isLength({ min: 6, max: 16 }),
         body("email").isEmail().normalizeEmail(),
