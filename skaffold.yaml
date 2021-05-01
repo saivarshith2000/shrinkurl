@@ -34,4 +34,5 @@ deploy:
     - k8s/auth-depl.yaml
     - k8s/auth-pg-depl.yaml
     - k8s/shrink-depl.yaml
+    - k8s/shrink-pg-depl.yaml
     - k8s/ingress.yaml

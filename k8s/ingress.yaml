@@ -25,3 +25,7 @@ spec:
             backend:
               serviceName: shrink-srv
               servicePort: 8000
+          - path: /[A-Za-z]{7}
+            backend:
+              serviceName: shrink-srv
+              servicePort: 8000

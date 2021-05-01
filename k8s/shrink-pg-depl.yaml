@@ -1,0 +1,43 @@
+# auth-pg Deployment
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: shrink-pg-depl
+    labels:
+        app: shrink-pg
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: shrink-pg
+    template:
+        metadata:
+            labels:
+                app: shrink-pg
+        spec:
+            containers:
+                - name: shrink-pg
+                  image: postgres:alpine
+                  env:
+                    - name: POSTGRES_PASSWORD
+                      value: testpwd
+                    - name: POSTGRES_USER
+                      value: testuser
+                    - name: POSTGRES_DB
+                      value: shrinkdb
+                  ports:
+                      - containerPort: 5432
+---
+# auth-pg service
+apiVersion: v1
+kind: Service
+metadata:
+    name: shrink-pg-srv
+spec:
+    selector:
+        app: shrink-pg
+    ports:
+        - name: shrink-pg
+          protocol: TCP
+          port: 5432
+          targetPort: 5432
