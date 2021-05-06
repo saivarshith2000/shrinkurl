@@ -5,9 +5,9 @@ const crypto = require("crypto");
 const { NotFoundError } = require("objection");
 const FreeUrlDao = require("../db/dao/FreeUrlDao");
 
-const domain = process.env.DOMAIN || "http://shrinkurl.com/";
+const domain = process.env.DOMAIN || "http://shrinkurl.com/r/";
 
-router.post("/new", async (req, res) => {
+router.post("/new/free", async (req, res) => {
     // extract url from request body
     const { url } = req.body;
     // if url is invalid, throw error
@@ -26,7 +26,6 @@ router.post("/new", async (req, res) => {
             // if the long url is not found in the database, create new one
             const shorturl =
                 crypto.createHash("md5").update(url).digest("hex").slice(0, 6);
-            console.log(shorturl + " " + shorturl.length);
             // insert new longurl-shorturl mapping into the database
             try {
                 await FreeUrlDao.insert(shorturl, url);
@@ -46,18 +45,6 @@ router.post("/new", async (req, res) => {
     return res
         .status(400)
         .json({ status: "error", msg: "There was an error in shrinking your url. Please try again!" });
-});
-
-router.get("/:shorturl", (req, res) => {
-    // TODO - update route to use postgres database
-    const shorturl = baseUrl + req.params.shorturl;
-    console.log(shorturl);
-    for (const u of urls) {
-        if (u.shorturl === shorturl) {
-            return res.redirect(u.url);
-        }
-    }
-    return res.status(404).json({ status: "error", msg: "shorturl not found" });
 });
 
 module.exports = router;

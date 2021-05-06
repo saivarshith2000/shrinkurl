@@ -21,11 +21,11 @@ spec:
             backend:
               serviceName: auth-srv
               servicePort: 8000          
-          - path: /new
+          - path: /new/free
             backend:
               serviceName: shrink-srv
               servicePort: 8000
-          - path: /[A-Za-z]{7}
+          - path: /r/[A-Za-z0-9]{6}
             backend:
               serviceName: shrink-srv
               servicePort: 8000

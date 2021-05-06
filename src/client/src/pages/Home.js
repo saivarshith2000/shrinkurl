@@ -31,7 +31,7 @@ function Home({ setMessage }) {
             return;
         }
         try {
-            const resp = await axios.post("/new", { url });
+            const resp = await axios.post("/new/free", { url });
             console.log(resp.data.shorturl);
             setShorturl(resp.data.shorturl);
         } catch (err) {
