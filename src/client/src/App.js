@@ -27,15 +27,13 @@ function App() {
         // can't directly fetch here. It is an async function so, it can cause
         // race condition. So, define a function and call it instead.
         const refreshAuth = async () => {
-            // if user is already logged in, don't do anything. This case occurs when the user
-            // redirects to the root route while the client session is already initialised
             if (isLoggedIn) {
+                // if user is already logged in, don't do anything. This case occurs when the user
+                // redirects to the root route while the client session is already initialised
                 return;
             }
-            console.log("Verifing authentication state");
             try {
                 const resp = await axios.post("/auth/refresh", {});
-                console.log(resp);
                 // the client is logged in. Store username in state
                 setIsLoggedIn(true);
                 setUsername(resp.data.username);
@@ -44,6 +42,8 @@ function App() {
                     // the client does not have the auth_token cookie -> user not signed in
                     setIsLoggedIn(false);
                 }
+                console.log(err);
+                setIsLoggedIn(false);
             }
         };
         refreshAuth();
@@ -51,7 +51,7 @@ function App() {
 
     return (
         <Router>
-            <NavBar />
+            <NavBar isLoggedIn={isLoggedIn} username={username} />
             <Message message={message} />
             <Switch>
                 <Route path="/signin">

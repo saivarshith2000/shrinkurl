@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function NavBar() {
+function NavBar({ isLoggedIn, username }) {
     // Render the navigation urls
     const renderNav = () => {
         let urls = [
@@ -8,6 +8,13 @@ function NavBar() {
             { text: "Sign Up", url: "/signup" },
             { text: "About", url: "/about" },
         ];
+        if (isLoggedIn) {
+            urls = [
+                { text: "Logout", url: "/signout" },
+                { text: "About", url: "/about" },
+                { text: "Hello, " + username, url: "/" },
+            ];
+        }
         return urls.map((url) => (
             <Link
                 className="p-2 m-auto mx-4 rounded-sm hover:bg-blue-600 hover:text-gray-50"

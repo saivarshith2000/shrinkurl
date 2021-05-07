@@ -8,6 +8,8 @@ const AuthValidationError = require("../errors/AuthValidationError");
 const ServerError = require("../errors/ServerError");
 const { generateJWT } = require("../utils/jwt");
 
+const cookieMaxAge = 3 * 86400 * 1000;
+
 router.post(
     "/auth/signin",
     [
@@ -34,10 +36,14 @@ router.post(
             }
             // if user exists, return success and jwt
             const token = generateJWT({ id: user.id, username: user.username });
-            res.cookie('auth_token', token, {httpOnly: true, sameSite: "Strict"})
+            res.cookie("auth_token", token, {
+                httpOnly: true,
+                sameSite: "Strict",
+                maxAge: cookieMaxAge,
+            });
             return res
                 .status(200)
-                .json({ status: "success", username:  user.username });
+                .json({ status: "success", username: user.username });
         } catch (err) {
             if (err instanceof NotFoundError) {
                 return next(
