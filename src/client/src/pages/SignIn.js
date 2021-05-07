@@ -1,10 +1,12 @@
 import { useState } from "react";
 import AuthFormField from "../components/AuthFormField";
 import axios from 'axios'
+import {useHistory} from 'react-router-dom'
 
 function SignIn({ setMessage }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
+    const history = useHistory()
 
     const onSubmit = async (e) => {
         e.preventDefault();
@@ -21,6 +23,8 @@ function SignIn({ setMessage }) {
             console.log(resp.data.username)
             // store new JWT logic here
             setMessage({isError: false, msg: "Signed in successfully!"})
+            // redirect to dashboard
+            history.push('/')
         } catch (e) {
             console.log(e.response.data)
             // if application error
@@ -63,7 +67,7 @@ function SignIn({ setMessage }) {
                     isPassword={true}
                 ></AuthFormField>
                 <button className="w-1/3 p-4 m-auto text-xl bg-blue-600 rounded-sm text-gray-50">
-                    Sign Up
+                    Sign In
                 </button>
             </form>
         </div>

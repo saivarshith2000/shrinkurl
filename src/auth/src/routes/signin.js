@@ -34,10 +34,10 @@ router.post(
             }
             // if user exists, return success and jwt
             const token = generateJWT({ id: user.id, username: user.username });
-            res.cookie('auth-token', token, {httpOnly: true, sameSite: "Strict"})
+            res.cookie('auth_token', token, {httpOnly: true, sameSite: "Strict"})
             return res
                 .status(200)
-                .json({ status: "success", data:  token });
+                .json({ status: "success", username:  user.username });
         } catch (err) {
             if (err instanceof NotFoundError) {
                 return next(

@@ -1,8 +1,10 @@
 const express = require("express");
 const cookieParser = require('cookie-parser')
 
-const signup = require("./routes/signup");
-const signin = require("./routes/signin");
+const signupRouter = require("./routes/signup");
+const signinRouter = require("./routes/signin");
+const refreshRouter = require("./routes/refresh");
+
 const ErrorHandler = require("./middlewares/ErrorHandler");
 const setupDb = require("./db/setupDb");
 
@@ -17,8 +19,9 @@ app.use(express.json());
 app.use(cookieParser())
 
 // routes
-app.use(signup);
-app.use(signin);
+app.use(signupRouter);
+app.use(signinRouter);
+app.use(refreshRouter);
 
 // error handler
 app.use(ErrorHandler);

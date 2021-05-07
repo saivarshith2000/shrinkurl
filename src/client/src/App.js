@@ -1,5 +1,6 @@
-import { React, useState } from "react";
+import { React, useEffect, useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import axios from "axios";
 
 // import pages
 import Home from "./pages/Home";
@@ -13,6 +14,41 @@ import NavBar from "./components/NavBar";
 
 function App() {
     const [message, setMessage] = useState({ isError: false, msg: null });
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+    const [username, setUsername] = useState(null);
+
+    // verify that use is authenticated. Send an empty post request to /auth/refresh.
+    // if successful, a new token is set in cookie and username is returned, isLoggedIn becomes true
+    // if failed, the loggedIn state is set for false.
+    // empty array is passed as dependency for useEffect(). So, the function is called only once after
+    // the initial render. This might cause a flicker for some components. But it should be massively
+    // noticable. The components that re-render would be the navbar and dashboard component.
+    useEffect(() => {
+        // can't directly fetch here. It is an async function so, it can cause
+        // race condition. So, define a function and call it instead.
+        const refreshAuth = async () => {
+            // if user is already logged in, don't do anything. This case occurs when the user
+            // redirects to the root route while the client session is already initialised
+            if (isLoggedIn) {
+                return;
+            }
+            console.log("Verifing authentication state");
+            try {
+                const resp = await axios.post("/auth/refresh", {});
+                console.log(resp);
+                // the client is logged in. Store username in state
+                setIsLoggedIn(true);
+                setUsername(resp.data.username);
+            } catch (err) {
+                if (err.response && err.response.status === 400) {
+                    // the client does not have the auth_token cookie -> user not signed in
+                    setIsLoggedIn(false);
+                }
+            }
+        };
+        refreshAuth();
+    }, []);
+
     return (
         <Router>
             <NavBar />
