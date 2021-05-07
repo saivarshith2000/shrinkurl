@@ -1,5 +1,5 @@
 #!/bin/sh
-sleep 3
+sleep 2
 
 # Try to apply migration for 10 times with 2 sec intervals in between.
 # If it still fails, that means connection to postgres database has failed.
@@ -12,7 +12,7 @@ while [ $? -ne 0 ]; do
         echo "Failed to connect to database. The container will now terminate"
         exit -1
     else
-        sleep 2
+        sleep 5
         TIMES=$((TIMES + 1))
         $CMD
     fi

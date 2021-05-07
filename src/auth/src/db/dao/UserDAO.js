@@ -13,11 +13,11 @@ class UserDAO {
     }
 
     // check if a user exists in the database. If user exists and password
-    // matches, username is returned. Else null is returned
+    // matches, user row is returned. Else null is returned
     static async verify(email, password) {
         const user = await User.query().findOne({ email }).throwIfNotFound();
         const result = await verifyPassword(password, user.password);
-        if (result) return user.username;
+        if (result) return user;
         else return null;
     }
 }

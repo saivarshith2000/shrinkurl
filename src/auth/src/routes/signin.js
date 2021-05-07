@@ -18,25 +18,26 @@ router.post(
         // return first error if validation errors occur
         const errors = validationResult(req);
         if (!errors.isEmpty()) {
-            // The below line is dependent on the express-validator library
+            // The below logic is dependent on the express-validator library
             const msg = errors.array()[0].param;
             throw new AuthValidationError("Invalid" + msg);
         }
         const { email, password } = req.body;
         try {
             // if user doesn't exists, an error is thrown by objection
-            const username = await UserDAO.verify(email, password);
-            if (username == null) {
+            const user = await UserDAO.verify(email, password);
+            if (user.username == null) {
                 // if password is incorrect
                 return next(
                     new AuthValidationError("email/password incorrect!")
                 );
             }
             // if user exists, return success and jwt
-            const token = generateJWT({ email, username });
+            const token = generateJWT({ id: user.id, username: user.username });
+            res.cookie('auth-token', token, {httpOnly: true, sameSite: "Strict"})
             return res
                 .status(200)
-                .json({ status: "success", data: { email, password }, token });
+                .json({ status: "success", data:  token });
         } catch (err) {
             if (err instanceof NotFoundError) {
                 return next(
