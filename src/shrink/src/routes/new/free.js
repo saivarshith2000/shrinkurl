@@ -3,11 +3,11 @@ const router = express.Router();
 const validUrl = require("valid-url");
 const crypto = require("crypto");
 const { NotFoundError } = require("objection");
-const FreeUrlDao = require("../db/dao/FreeUrlDao");
+const FreeUrlDao = require("../../db/dao/FreeUrlDao");
 
 const domain = process.env.DOMAIN || "http://shrinkurl.com/r/";
 
-router.post("/new/free", async (req, res) => {
+router.post("/", async (req, res) => {
     // extract url from request body
     const { url } = req.body;
     // if url is invalid, throw error
