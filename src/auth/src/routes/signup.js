@@ -3,9 +3,9 @@ const router = express.Router();
 const { body, validationResult } = require("express-validator");
 const { UniqueViolationError } = require("objection");
 
-const AuthValidationError = require("../../errors/AuthValidationError");
-const ServerError = require("../../errors/ServerError");
-const UserDAO = require("../../db/dao/UserDAO");
+const AuthValidationError = require("../errors/AuthValidationError");
+const ServerError = require("../errors/ServerError");
+const UserDAO = require("../db/dao/UserDAO");
 
 router.post(
     "/",

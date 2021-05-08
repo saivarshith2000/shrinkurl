@@ -4,7 +4,7 @@ const router = express.Router();
 const { verifyJWT, generateJWT } = require("../utils/jwt");
 const cookieMaxAge = 3 * 86400 * 1000  
 
-router.post("/auth/refresh", (req, res) => {
+router.post("/", (req, res) => {
     const auth_token = req.cookies.auth_token;
     if (auth_token === undefined) {
         return res.status(400).json({ status: "error", msg: "Auth Token absent" });

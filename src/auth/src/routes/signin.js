@@ -3,10 +3,10 @@ const { body, validationResult } = require("express-validator");
 const { NotFoundError } = require("objection");
 const router = express.Router();
 
-const UserDAO = require("../../db/dao/UserDAO");
-const AuthValidationError = require("../../errors/AuthValidationError");
-const ServerError = require("../../errors/ServerError");
-const { generateJWT } = require("../../utils/jwt");
+const UserDAO = require("../db/dao/UserDAO");
+const AuthValidationError = require("../errors/AuthValidationError");
+const ServerError = require("../errors/ServerError");
+const { generateJWT } = require("../utils/jwt");
 
 const cookieMaxAge = 3 * 86400 * 1000;
 
