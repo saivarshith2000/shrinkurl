@@ -19,7 +19,7 @@ exports.up = function(knex) {
         // long url
         table.string("longurl", 512).unique().notNullable();
         // number of times the shorturl was used
-        table.integer('redirects').unsignged().notNullable();
+        table.integer('redirects').unsigned().notNullable();
     })
 };
 
