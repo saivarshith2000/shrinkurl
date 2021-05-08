@@ -3,7 +3,7 @@ import AuthFormField from "../components/AuthFormField";
 import axios from 'axios'
 import {useHistory} from 'react-router-dom'
 
-function SignIn({ setMessage }) {
+function SignIn({ setMessage, setUsername }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const history = useHistory()
@@ -20,9 +20,10 @@ function SignIn({ setMessage }) {
         // send POST request to AUTH service
         try {
             const resp = await axios.post("/auth/signin", {email, password})
-            console.log(resp.data.username)
             // store new JWT logic here
             setMessage({isError: false, msg: "Signed in successfully!"})
+            // set username
+            setUsername(resp.data.username)
             // redirect to dashboard
             history.push('/')
         } catch (e) {

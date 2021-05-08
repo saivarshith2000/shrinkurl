@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom";
 
-function NavBar({ isLoggedIn, username }) {
+function NavBar({ username }) {
     // Render the navigation urls
     const renderNav = () => {
         let urls = [
@@ -8,9 +8,9 @@ function NavBar({ isLoggedIn, username }) {
             { text: "Sign Up", url: "/signup" },
             { text: "About", url: "/about" },
         ];
-        if (isLoggedIn) {
+        if (username != null) {
             urls = [
-                { text: "Logout", url: "/signout" },
+                { text: "Sign Out", url: "/signout" },
                 { text: "About", url: "/about" },
                 { text: "Hello, " + username, url: "/" },
             ];

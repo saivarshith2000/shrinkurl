@@ -6,8 +6,8 @@ const cookieMaxAge = 3 * 86400 * 1000
 
 router.post("/auth/refresh", (req, res) => {
     const auth_token = req.cookies.auth_token;
-    if (auth_token == undefined) {
-        res.status(400).json({ status: "error", msg: "Auth Token absent" });
+    if (auth_token === undefined) {
+        return res.status(400).json({ status: "error", msg: "Auth Token absent" });
     }
     // get a new token and send it
     try {
@@ -21,7 +21,7 @@ router.post("/auth/refresh", (req, res) => {
     } catch (err) {
         console.log(err);
         // invalid token - the token has been tampered with
-        res.status(400).json({
+        return res.status(400).json({
             status: "error",
             msg: "Auth Token expired/corrupted/tampered with",
         });
