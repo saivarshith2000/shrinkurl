@@ -5,7 +5,7 @@ const cookieParser = require('cookie-parser')
 const setupDb = require('./db/setupDb')
 
 const newRouter = require("./routes/new/index");
-const shortRouter = require("./routes/short");
+const shortUrlRouter = require("./routes/shorturl/index");
 
 const ErrorHandler = require("./middlewares/ErrorHandler");
 
@@ -19,10 +19,8 @@ app.use(express.json());
 app.use(cookieParser())
 
 // routes
-// the cors middleware is questionable needs to be configured
-app.use(cors({ origin: true }));
 app.use('/new', newRouter);
-app.use(shortRouter);
+app.use('/', shortUrlRouter);
 
 // error handler middleware
 app.use(ErrorHandler)

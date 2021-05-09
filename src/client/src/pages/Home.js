@@ -2,7 +2,7 @@ import { useState } from "react";
 import validUrl from "valid-url";
 import axios from "axios";
 
-function Home({ setMessage }) {
+function Home({ setMessage, username }) {
     const [url, setUrl] = useState("");
     const [shorturl, setShorturl] = useState("");
     const [copied, setCopied] = useState(false);
@@ -31,7 +31,11 @@ function Home({ setMessage }) {
             return;
         }
         try {
-            const resp = await axios.post("/new/free", { url });
+            let endpoint = "/new/free"
+            if (username != null) {
+                endpoint = '/new/registered'
+            }
+            const resp = await axios.post(endpoint, { url });
             console.log(resp.data.shorturl);
             setShorturl(resp.data.shorturl);
         } catch (err) {

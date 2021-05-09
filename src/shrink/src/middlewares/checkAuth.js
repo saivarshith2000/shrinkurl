@@ -11,7 +11,8 @@ const checkAuth = (req, res, next) => {
     }
     try {
         const decoded = verifyJWT(auth_token);
-        req.userid = decoded.id;
+        // put userid in req.body
+        req.body.userid = decoded.id;
         next();
     } catch (err) {
         throw new UnauthorisedAccessError();

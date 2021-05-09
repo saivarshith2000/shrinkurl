@@ -3,7 +3,7 @@ const RegisteredUrl = require("../models/RegisteredUrl");
 class RegisteredUrlDao {
     // insert new shorturl into database
     static async insert(userid, shorturl, longurl) {
-        return await FreeUrl.query().insert({
+        return await RegisteredUrl.query().insert({
             userid,
             shorturl,
             longurl,
@@ -11,17 +11,25 @@ class RegisteredUrlDao {
         });
     }
 
-    // get long url from database based on the supplied shorturl
-    static async getLongUrl(shorturl) {
-        const row = await FreeUrl.query()
+    // get longurl and increment redirects by one
+    static async getLongUrlAndRedirects(shorturl) {
+        const row = await RegisteredUrl.query()
             .findOne({ shorturl })
             .throwIfNotFound();
-        return row.longurl;
+        const longurl = row.longurl
+        const currentRedirects = row.redirects
+        try {
+            await RegisteredUrl.query().update({redirects: currentRedirects + 1}).where('shorturl', shorturl)
+        } catch (e) {
+            // do nothing - we MUST redirect even though we can update redirects
+            console.log(err)
+        }
+        return longurl;
     }
 
     // get short url from longurl -> used to check if a url is already present in the database
     static async getShortUrl(longurl) {
-        const row = await FreeUrl.query()
+        const row = await RegisteredUrl.query()
             .findOne({ longurl })
             .throwIfNotFound();
         return row.shorturl;

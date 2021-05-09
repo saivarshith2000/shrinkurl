@@ -65,8 +65,8 @@ function App() {
                 <Route path="/signout">
                     <SignOut setUsername={setUsername} setMessage={setMessage}/>
                 </Route>
-                <Route path="/">
-                    <Home setMessage={setMessage} />
+                <Route path="/" >
+                    <Home setMessage={setMessage} username={username}/>
                 </Route>
             </Switch>
         </Router>

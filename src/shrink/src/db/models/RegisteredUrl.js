@@ -1,5 +1,5 @@
 // RegisteredUrl model - represents a row in the registered_urls table
-const {Model} = require('objection');
+const { Model } = require("objection");
 
 class RegisteredUrl extends Model {
     static get tableName() {
@@ -7,4 +7,4 @@ class RegisteredUrl extends Model {
     }
 }
 
-module.exports = FreeUrl;
+module.exports = RegisteredUrl;
