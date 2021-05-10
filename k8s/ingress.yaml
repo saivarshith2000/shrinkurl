@@ -13,6 +13,10 @@ spec:
             backend:
               serviceName: client-srv
               servicePort: 80
+          - path: /favicon.ico
+            backend:
+              serviceName: client-srv
+              servicePort: 80
           - path: /sign*
             backend:
               serviceName: client-srv
@@ -21,11 +25,19 @@ spec:
             backend:
               serviceName: auth-srv
               servicePort: 8000          
+          - path: /getRegisteredUrls
+            backend:
+              serviceName: shrink-srv
+              servicePort: 8000          
           - path: /new/*
             backend:
               serviceName: shrink-srv
               servicePort: 8000
-          - path: /[r,f]/[A-Za-z0-9]{6}
+          - path: /r/[A-Za-z0-9]{6}
+            backend:
+              serviceName: shrink-srv
+              servicePort: 8000
+          - path: /f/[A-Za-z0-9]{6}
             backend:
               serviceName: shrink-srv
               servicePort: 8000

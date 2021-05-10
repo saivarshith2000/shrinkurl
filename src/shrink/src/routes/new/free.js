@@ -5,7 +5,7 @@ const crypto = require("crypto");
 const { NotFoundError } = require("objection");
 const FreeUrlDao = require("../../db/dao/FreeUrlDao");
 
-const domain = process.env.DOMAIN || "http://shrinkurl.com/r/";
+const domain = process.env.DOMAIN || "http://shrinkurl.com/f/";
 
 router.post("/", async (req, res) => {
     // extract url from request body

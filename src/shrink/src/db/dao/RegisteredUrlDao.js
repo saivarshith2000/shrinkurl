@@ -34,6 +34,12 @@ class RegisteredUrlDao {
             .throwIfNotFound();
         return row.shorturl;
     }
+
+    // get urls - fetch all urls of a user
+    static async getUrls(userid) {
+        const rows = await RegisteredUrl.query().where('id', userid)
+        return rows;
+    }
 }
 
 module.exports = RegisteredUrlDao;

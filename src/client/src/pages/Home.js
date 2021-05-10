@@ -2,6 +2,8 @@ import { useState } from "react";
 import validUrl from "valid-url";
 import axios from "axios";
 
+import DashBoard from "../components/DashBoard";
+
 function Home({ setMessage, username }) {
     const [url, setUrl] = useState("");
     const [shorturl, setShorturl] = useState("");
@@ -31,9 +33,9 @@ function Home({ setMessage, username }) {
             return;
         }
         try {
-            let endpoint = "/new/free"
+            let endpoint = "/new/free";
             if (username != null) {
-                endpoint = '/new/registered'
+                endpoint = "/new/registered";
             }
             const resp = await axios.post(endpoint, { url });
             console.log(resp.data.shorturl);
@@ -41,6 +43,13 @@ function Home({ setMessage, username }) {
         } catch (err) {
             console.log(err);
         }
+    };
+
+    const renderMiddleSection = () => {
+        if (username != null) {
+            return <DashBoard username={username} />;
+        }
+        return <div></div>;
     };
 
     const renderUrlInput = () => {
@@ -64,18 +73,14 @@ function Home({ setMessage, username }) {
     };
 
     return (
-        <div className>
-            <div className="relative z-0 py-12 bg-blue-50">
+        <div>
+            <div className="relative z-0 pb-4 bg-blue-50">
                 <div className="flex flex-col w-2/3 mx-auto my-0 flex-column">
-                    <div className="w-full p-16 m-auto mb-0 text-center">
-                        <div className="mb-4 text-6xl font-semibold text-gray-800">
-                            ShrinkUrl
-                        </div>
-                        <div className="mb-0 text-xl text-gray-400">
-                            A Simple URL shortening tool
-                        </div>
+                    <div className="w-full m-auto mt-10 text-xl text-center text-gray-600">
+                        A simple url shrinking service. Shrink your urls
+                        instantly !!!
                     </div>
-                    <div className="flex w-2/3 m-auto my-0">
+                    <div className="flex w-2/3 m-auto my-6">
                         <form
                             onSubmit={onSubmit}
                             className="flex w-full m-auto shadow-lg"
@@ -92,6 +97,8 @@ function Home({ setMessage, username }) {
                     </div>
                 </div>
             </div>
+            {/* middle section */}
+            <div>{renderMiddleSection()}</div>
         </div>
     );
 }
