@@ -16,7 +16,7 @@ function DashBoard({ username, setMessage }) {
                 console.log(resp.data.data);
                 setUrls(resp.data.data);
             } catch (err) {
-                console.log(err);
+                // console.log(err);
             }
         };
         getUrls();

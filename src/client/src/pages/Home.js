@@ -17,7 +17,6 @@ function Home({ setMessage, username }) {
             await getShortUrl();
             return;
         }
-        console.log("copied to clipboard");
         // copy to clipboard
         // NOTE: this method only works on https.
         navigator.clipboard.writeText(shorturl);
@@ -40,10 +39,9 @@ function Home({ setMessage, username }) {
                 endpoint = "/new/registered";
             }
             const resp = await axios.post(endpoint, { url });
-            console.log(resp.data.shorturl);
             setShorturl(resp.data.shorturl);
         } catch (err) {
-            console.log(err);
+            setMessage({isError: true, msg: "An error occured while trying to generate shorturl"})
         }
     };
 

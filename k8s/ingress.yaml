@@ -17,11 +17,19 @@ spec:
             backend:
               serviceName: client-srv
               servicePort: 80
-          - path: /sign*
+          - path: /signin
             backend:
               serviceName: client-srv
               servicePort: 80
-          - path: /auth/*
+          - path: /signup
+            backend:
+              serviceName: client-srv
+              servicePort: 80
+          - path: /signout
+            backend:
+              serviceName: client-srv
+              servicePort: 80
+          - path: /auth/.*
             backend:
               serviceName: auth-srv
               servicePort: 8000          

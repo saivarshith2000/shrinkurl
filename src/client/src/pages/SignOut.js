@@ -11,7 +11,6 @@ function SignOut({ setUsername, setMessage }) {
                 await axios.post("/auth/signout", {});
                 setUsername(null);
             } catch (err) {
-                console.log(err);
                 setMessage({ isError: true, msg: "Unable to Sign out at the moment. Error contacting auth service. Please try later." });
                 history.push("/");
             }

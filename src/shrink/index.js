@@ -1,7 +1,6 @@
 const app = require("./src/app");
+const {PORT} = require('./config')
 
-const port = process.env.PORT || 8000;
-
-app.listen(port, () => {
-    console.log(`ShrinkUrl SHRINK server running at http://localhost:${port}`);
+app.listen(PORT, () => {
+    console.log(`ShrinkUrl SHRINK server running at http://localhost:${PORT}`);
 });

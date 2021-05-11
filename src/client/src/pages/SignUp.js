@@ -22,13 +22,11 @@ function SignUp({ setMessage }) {
         // send POST request to AUTH service
         try {
             const resp = await axios.post("/auth/signup", {username, email, password})
-            console.log(resp.data)
             // store JWT logic here
             setMessage({isError: false, msg: "Signed up successfully. Sign In to proceed"})
             // wait for 1 sec and redirect to signin page
             setTimeout(() => history.push('/signin'), 1000)
         } catch (e) {
-            console.log(e.response.data)
             // if application error
             if (e.response.data.status === 'error') {
                 setMessage({isError: true, msg: e.response.data.msg})

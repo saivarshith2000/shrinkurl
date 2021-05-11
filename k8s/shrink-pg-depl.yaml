@@ -20,11 +20,11 @@ spec:
                   image: postgres:alpine
                   env:
                     - name: POSTGRES_PASSWORD
-                      value: testpwd
+                      value: "testpwd"
                     - name: POSTGRES_USER
-                      value: testuser
+                      value: "testuser"
                     - name: POSTGRES_DB
-                      value: shrinkdb
+                      value: "shrinkdb"
                   ports:
                       - containerPort: 5432
 ---

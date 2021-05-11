@@ -18,6 +18,13 @@ spec:
       containers:
         - name: auth
           image: shrinkurl/auth
+          env:
+            - name: JWT_SECRET
+              value: "vQoPyhW4tJ7Ty0G4XfTvgtxqRfnMViKLfIDtMJoDmHFM1YxVFbF6z3Y"
+            - name: SALT_ROUNDS
+              value: "2"
+            - name: PORT
+              value: "8000"
           ports:
             - containerPort: 8000
 ---

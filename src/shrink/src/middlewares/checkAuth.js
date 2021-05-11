@@ -15,6 +15,7 @@ const checkAuth = (req, res, next) => {
         req.body.userid = decoded.id;
         next();
     } catch (err) {
+        console.log(err)
         throw new UnauthorisedAccessError();
     }
 };

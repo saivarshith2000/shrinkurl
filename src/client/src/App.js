@@ -7,7 +7,6 @@ import Home from "./pages/Home";
 import SignIn from "./pages/SignIn";
 import SignUp from "./pages/SignUp";
 import SignOut from "./pages/SignOut";
-import About from "./pages/About";
 
 // import common components
 import Message from "./components/Message";
@@ -58,9 +57,6 @@ function App() {
                 </Route>
                 <Route path="/signup">
                     <SignUp setMessage={setMessage} />
-                </Route>
-                <Route path="/about">
-                    <About />
                 </Route>
                 <Route path="/signout">
                     <SignOut setUsername={setUsername} setMessage={setMessage}/>

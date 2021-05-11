@@ -18,6 +18,13 @@ spec:
       containers:
         - name: shrink
           image: shrinkurl/shrink
+          env:
+            - name: JWT_SECRET
+              value: "vQoPyhW4tJ7Ty0G4XfTvgtxqRfnMViKLfIDtMJoDmHFM1YxVFbF6z3Y"
+            - name: DOMAIN
+              value: "https://shrinkurl.com/"
+            - name: PORT
+              value: "8000"
           ports:
             - containerPort: 8000
 ---

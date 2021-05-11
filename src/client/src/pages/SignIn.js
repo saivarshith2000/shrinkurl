@@ -27,7 +27,6 @@ function SignIn({ setMessage, setUsername }) {
             // redirect to dashboard
             history.push('/')
         } catch (e) {
-            console.log(e.response.data)
             // if application error
             if (e.response.data.status === 'error') {
                 setMessage({isError: true, msg: e.response.data.msg})
