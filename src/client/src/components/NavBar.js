@@ -42,7 +42,7 @@ function NavBar({ username }) {
     };
 
     return (
-        <div className="relative z-50 p-4 shadow-lg bg-gray-50">
+        <div className="relative z-50 p-3 shadow-lg bg-gray-50">
             <div className="flex flex-row justify-between w-2/3 m-auto align-middle">
                 <Link
                     to="/"

@@ -3,6 +3,7 @@ import validUrl from "valid-url";
 import axios from "axios";
 
 import DashBoard from "../components/DashBoard";
+import MiddleBanner from "../components/MiddleBanner";
 
 function Home({ setMessage, username }) {
     const [url, setUrl] = useState("");
@@ -18,6 +19,7 @@ function Home({ setMessage, username }) {
         }
         console.log("copied to clipboard");
         // copy to clipboard
+        // NOTE: this method only works on https.
         navigator.clipboard.writeText(shorturl);
         setCopied(true);
         return;
@@ -49,7 +51,7 @@ function Home({ setMessage, username }) {
         if (username != null) {
             return <DashBoard username={username} setMessage={setMessage}/>;
         }
-        return <div></div>;
+        return <MiddleBanner/>
     };
 
     const renderUrlInput = () => {
