@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import DashBoardListItem from "./DashBoardListItem";
 
-function DashBoard({ username }) {
+function DashBoard({ username, setMessage }) {
     const [urls, setUrls] = useState([]);
     useEffect(() => {
         // this case should not arise generally
@@ -22,10 +22,30 @@ function DashBoard({ username }) {
         getUrls();
     }, []);
 
+    const deleteUrl = async (shorturl) => {
+        try {
+            await axios.post("/deleteUrl", { shorturl });
+            setUrls(urls.filter((url) => url.shorturl !== shorturl));
+            setMessage({ isError: false, msg: "Deleted Url" });
+        } catch (err) {
+            console.log(err);
+            setMessage({
+                isError: true,
+                msg: "Failed to delete url. Please try again later",
+            });
+        }
+    };
+
     const renderUrls = () => {
-        console.log(urls)
+        if (urls.length === 0) {
+            return (
+                <div className="p-8 m-auto mt-8 text-lg font-bold text-blue-600 rounded-md shadow-md bg-blue-50">
+                    You haven't shrunk any urls yet
+                </div>
+            );
+        }
         return urls.map((url) => {
-            return <DashBoardListItem url={url} key={url.longurl} />;
+            return <DashBoardListItem url={url} key={url.longurl} deleteUrl={deleteUrl} />;
         });
     };
     return (

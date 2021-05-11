@@ -21,7 +21,7 @@ router.post("/", async (req, res) => {
     }
     // if url already exists, returns its shortened url
     try {
-        const shorturl = await RegisteredUrlDao.getShortUrl(url);
+        const shorturl = await RegisteredUrlDao.getShortUrl(userid, url);
         // return this short url
         return res.status(200).json({ url, shorturl: domain + shorturl });
     } catch (err) {

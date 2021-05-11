@@ -47,7 +47,7 @@ function Home({ setMessage, username }) {
 
     const renderMiddleSection = () => {
         if (username != null) {
-            return <DashBoard username={username} />;
+            return <DashBoard username={username} setMessage={setMessage}/>;
         }
         return <div></div>;
     };

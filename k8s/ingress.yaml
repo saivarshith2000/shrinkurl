@@ -33,6 +33,10 @@ spec:
             backend:
               serviceName: shrink-srv
               servicePort: 8000
+          - path: /deleteUrl
+            backend:
+              serviceName: shrink-srv
+              servicePort: 8000
           - path: /r/[A-Za-z0-9]{6}
             backend:
               serviceName: shrink-srv
